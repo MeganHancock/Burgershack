@@ -23,8 +23,23 @@ class BurgerService {
         if (burgerIndex == -1) {
             throw new BadRequest('no burger with supplied ID')
         }
-        fakeDb.burgers.splice(burgerIndex, 1)
         return 'Burger removed!'
+    }
+
+    updateBurger(burgerId, burgerData) {
+        // const newBurger = new Burger(burgerData)
+        const burgerToUpdate = fakeDb.burgers.find(burger => burger.id == burgerId)
+
+        // fakeDb.burgers.splice(burgerIndex, 1, newBurger)
+
+
+        // return newBurger
+
+        if (burgerData.name) {
+            burgerToUpdate.name = burgerData.name
+        }
+
+        return burgerToUpdate
     }
 }
 
