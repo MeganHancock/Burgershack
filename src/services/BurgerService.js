@@ -1,5 +1,6 @@
 import { fakeDb } from "../db/FakeDb.js"
 import { Burger } from "../models/Burger.js"
+import { BadRequest } from "../utils/Errors.js"
 
 class BurgerService {
 
@@ -15,6 +16,15 @@ class BurgerService {
         newBurger.id = lastBurger.id + 1
         fakeDb.burgers.push(newBurger)
         return newBurger
+    }
+
+    removeBurger(burgerId) {
+        const burgerIndex = fakeDb.burgers.findIndex(burger => burger.id == burgerId)
+        if (burgerIndex == -1) {
+            throw new BadRequest('no burger with supplied ID')
+        }
+        fakeDb.burgers.splice(burgerIndex, 1)
+        return 'Burger removed!'
     }
 }
 
